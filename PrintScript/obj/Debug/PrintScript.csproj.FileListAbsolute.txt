@@ -1,0 +1,11 @@
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\bin\Debug\PrintScript.exe.config
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\bin\Debug\PrintScript.exe
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\bin\Debug\PrintScript.pdb
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\bin\Debug\Sap.Data.Hana.v4.5.dll
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\bin\Debug\Sap.Data.Hana.v4.5.xml
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\bin\Debug\Sap.Data.Hana.v4.5.dll.config
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\obj\Debug\PrintScript.csprojAssemblyReference.cache
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\obj\Debug\PrintScript.csproj.CoreCompileInputs.cache
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\obj\Debug\PrintScript.csproj.CopyComplete
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\obj\Debug\PrintScript.exe
+C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\obj\Debug\PrintScript.pdb
