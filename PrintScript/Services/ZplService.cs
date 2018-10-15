@@ -11,11 +11,11 @@ namespace PrintScript.Services
     {
 
         StringService stringService = new StringService();
-        public void Print(string zplString)
+        public static void Print(string zplString, string ip)
         {
              {
- 
-                string ipAddress = "172.16.1.161";
+
+                string ipAddress = ip;
                 int port = 9100;
 
                 try
