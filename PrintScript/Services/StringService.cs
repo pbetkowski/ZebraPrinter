@@ -47,7 +47,6 @@ namespace PrintScript.Services
             {   
                 using (StreamReader sr = new StreamReader(@"C:\Dokumentacja\etykietaEDI.txt"))
                 {
-                    // Read the stream to a string, and write the string to the console.
                     ZPLString = sr.ReadToEnd();
                     return ZPLString;
                 }

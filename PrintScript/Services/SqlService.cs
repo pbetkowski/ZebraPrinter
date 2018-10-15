@@ -2,7 +2,9 @@
 using Sap.Data.Hana;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace PrintScript.Services
 {
@@ -13,6 +15,13 @@ namespace PrintScript.Services
         StringService stringService = new StringService();
         List<string> list = new List<string>();
 
+   //     static WaitHandle[] waitHandles = new WaitHandle[]
+   //{
+   //     new AutoResetEvent(false),
+   //     //new AutoResetEvent(false)
+   //};
+
+        string DocEntry = "";
         string Supplier = "";
         string Odbiorca = "";
         double Quantity = 0;
@@ -28,7 +37,7 @@ namespace PrintScript.Services
         string SupplierPartNumber = "";
         string GTL = "";
         string x = "";
-
+        List<string> list2 = new List<string>();
         public void ExecuteQuery()
         {
             try
@@ -45,6 +54,7 @@ namespace PrintScript.Services
                 while (dr.Read())
                 {
                     list = new List<string>();
+                    
                     Supplier = dr["Supplier"].ToString();
                     Odbiorca = dr["Odbiorca"].ToString();
                     PartNo = dr["Part no"].ToString();
@@ -59,6 +69,7 @@ namespace PrintScript.Services
                     Date = dr["Date"].ToString();
                     SupplierPartNumber = dr["Supplier part no"].ToString();
                     GTL = dr["GTL"].ToString();
+                    DocEntry = dr["DocEntry"].ToString();
 
                    
                     list.Add(Odbiorca);  //1
@@ -73,39 +84,74 @@ namespace PrintScript.Services
                     list.Add(GTL);   //numeric par 1
                     list.Add(Gate);  //numeric par 2
                     list.Add(LabelNo.ToString()); //numeric par4
-                    
+
+                    if (dr.FieldCount != 0)
+                    {
+                        Console.WriteLine("Znaleziono dokument: DocEntry: " + DocEntry);
+                    }
+
 
                     
-
-                    Console.WriteLine("ETYKIETA" + i);
-                    i++;
                     x = stringService.ConvertZplFile(stringService.ReadFile(), list);
-                    Console.WriteLine(x);
-                    //ZplService.Print(x);
+                    list2.Add(x);
+                    //Thread.Sleep(2000);
+                    //ThreadPool.QueueUserWorkItem(new WaitCallback(Print), waitHandles[0]);
+                    //WaitHandle.WaitAll(waitHandles);
 
+                    //await Print(x);
+
+                    //Thread.CurrentThread.Join(10000);
+                    //Console.WriteLine(x);
+                    //ZplService.Print(await GetString());
+                    Console.WriteLine("Usypiam...");
+                    Thread.Sleep(5000);
                     new Thread(() =>
                     {
-                        ZplService.Print(x);
+                        Console.WriteLine("Drukuję...");
+                        Console.WriteLine("Numer etykiety " + LabelNo);
+                        //ZplService.Print(x);
                     }).Start();
-
-                    if (i == 3)
-                    {
-                        return;
-                    }
+                   
                 }
-               
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                HanaService.CallUpdateProcedure(conn, int.Parse(DocEntry), 3);
             }
 
             finally
             {
-                conn.Close();
+                Console.Write("Zaktualizowano");
+                //  conn.Close();
             }
 
-            Console.ReadKey();
+            //Console.WriteLine(list2.Count);
+            //new Thread(() =>
+            //{
+            //    foreach (var item in list2)
+            //    {
+            //        ZplService.Print(item);
+            //        Thread.Sleep(5000);
+            //    }
+            //    HanaService.CallUpdateProcedure(conn, int.Parse(DocEntry), 2);
+            //}).Start();
+      
+
         }
+
+        //public void Print(object state)
+        //{
+        //    AutoResetEvent are = (AutoResetEvent)state;
+        //    Console.WriteLine("Wchodzę w wątek");
+            
+
+            
+        //    //ZplService.Print(x);
+        //    are.Set();
+        //  //  Console.WriteLine("Usypiam...");
+        //    Thread.Sleep(5000);
+        //}
     }
 }
