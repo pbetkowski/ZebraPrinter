@@ -9,8 +9,23 @@ using System.Threading.Tasks;
 
 namespace PrintScript.Services
 {
-    public static class HanaService
+    public class HanaService
     {
+        private static HanaService instance = null;
+
+        private HanaService() { }
+
+        public static HanaService CreateInstance()
+        {
+            if (instance == null)
+            {
+                instance = new HanaService();
+            }
+
+            return instance;
+
+        }
+
         public static HanaConnection ConnectToDataBase()
         {
             HanaConnection connection;
@@ -19,7 +34,7 @@ namespace PrintScript.Services
             return connection;
         }
 
-        public static void CallUpdateProcedure(HanaConnection connection, int docEntry, int result)
+        public void CallUpdateProcedure(HanaConnection connection, int docEntry, int result)
         {
             try
             {

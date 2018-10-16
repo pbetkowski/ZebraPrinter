@@ -8,28 +8,28 @@ using System.Threading.Tasks;
 
 namespace PrintScript.Services
 {
-    public class SqlService
+    public class MainController
     {
+        StringService stringService = StringService.GetInstance();
+        HanaService hanaService = HanaService.CreateInstance();
         HanaConnection conn = new HanaConnection();
-        ZplService zplService = new ZplService();
-        StringService stringService = new StringService();
         Label daimlerLabel;
         string singleLabel = "";
 
         public void ExecuteQuery()
         {
             try
-            {
+            {   
 
                 conn = HanaService.ConnectToDataBase();
                 conn.Open();
 
-                string query = Queries.testQuery;
+                string query = Queries.GetQueueOfLabels;
                 HanaCommand command = new HanaCommand(query);
                 command.Connection = conn;
                 HanaDataReader dr = command.ExecuteReader();
                 while (dr.Read())
-                {
+                {   
                     daimlerLabel = new Label();
                     daimlerLabel.Supplier = dr["Supplier"].ToString();
                     daimlerLabel.Odbiorca = dr["Odbiorca"].ToString();
@@ -47,39 +47,34 @@ namespace PrintScript.Services
                     daimlerLabel.GTL = dr["GTL"].ToString();
                     daimlerLabel.DocEntry = dr["DocEntry"].ToString();
 
-
-                    if (dr.FieldCount != 0)
-                    {
-                        Console.WriteLine("Znaleziono dokument: DocEntry: " + daimlerLabel.DocEntry);
-                    }
-
-
-
+                   
                     singleLabel = stringService.ConvertZplFile(stringService.ReadFile(), daimlerLabel);
-
-                    Console.WriteLine("Usypiam...");
-                    Thread.Sleep(2000);
-                    new Thread(() =>
-                    {
-                        Console.WriteLine("Drukuję...");
-                        Console.WriteLine("Numer etykiety " + daimlerLabel.LabelNo);
-                        //ZplService.Print(singleLabel, IP.Zpl401);
-                    }).Start();
-
+                    hanaService.CallUpdateProcedure(conn, int.Parse(daimlerLabel.DocEntry), 0);
+                    Console.WriteLine(singleLabel);
+                    ZplService.Print(singleLabel, IP.Zpl401);
                 }
 
+                if (daimlerLabel != null)
+                {
+                    hanaService.CallUpdateProcedure(conn, int.Parse(daimlerLabel.DocEntry), 2);
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                HanaService.CallUpdateProcedure(conn, int.Parse(daimlerLabel.DocEntry), 3);
+
+                if (daimlerLabel != null)
+                {
+                    hanaService.CallUpdateProcedure(conn, int.Parse(daimlerLabel.DocEntry), 3);
+                }
             }
 
             finally
             {
                 Console.WriteLine("Zaktualizowano");
-                //  conn.Close();
+                conn.Close();
             }
         }
+
     }
 }

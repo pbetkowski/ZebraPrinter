@@ -9,7 +9,10 @@ using System.Text;
 namespace PrintScript.Services
 {
     public class StringService
-    {
+    {   
+
+        private static StringService instance = null;
+
         public string ReadFile()
         {
 
@@ -47,16 +50,28 @@ namespace PrintScript.Services
                 sb.Replace("NumericPar1", label.GTL);
                 sb.Replace("NumericPar2", label.Gate);
                 sb.Replace("NumericPar4", label.LabelNo.ToString());
+                Console.WriteLine(label.LabelNo.ToString());
 
 
                 return sb.ToString();
             }
             catch (Exception e)
             {
-
                 Console.WriteLine(e.Message);
                 return zplFile;
             }
+        }
+
+        private StringService() { }
+
+        public static  StringService GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new StringService();
+            }
+
+            return instance;
         }
     }
 }
