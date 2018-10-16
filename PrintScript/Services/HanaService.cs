@@ -37,7 +37,7 @@ namespace PrintScript.Services
         public void CallUpdateProcedure(HanaConnection connection, int docEntry, int result)
         {
             try
-            {
+            {   
                 HanaCommand cmd = new HanaCommand(Queries.UpdateResult, connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@DocEntry", SqlDbType.Int).Value = docEntry;

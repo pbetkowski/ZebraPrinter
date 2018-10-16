@@ -1,20 +1,17 @@
 ﻿using PrintScript.Model;
 using Sap.Data.Hana;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PrintScript.Services
 {
     public class MainController
     {
-        StringService stringService = StringService.GetInstance();
-        HanaService hanaService = HanaService.CreateInstance();
-        HanaConnection conn = new HanaConnection();
-        Label daimlerLabel;
-        string singleLabel = "";
+        private StringService stringService = StringService.GetInstance();
+        private HanaService hanaService = HanaService.CreateInstance();
+        private HanaConnection conn = new HanaConnection();
+        private Label daimlerLabel;
+        private string singleLabel = "";
+        private int cnt;
 
         public void ExecuteQuery()
         {
@@ -23,13 +20,15 @@ namespace PrintScript.Services
 
                 conn = HanaService.ConnectToDataBase();
                 conn.Open();
+                cnt = 0;
 
                 string query = Queries.GetQueueOfLabels;
                 HanaCommand command = new HanaCommand(query);
                 command.Connection = conn;
                 HanaDataReader dr = command.ExecuteReader();
                 while (dr.Read())
-                {   
+                {
+                    cnt++;
                     daimlerLabel = new Label();
                     daimlerLabel.Supplier = dr["Supplier"].ToString();
                     daimlerLabel.Odbiorca = dr["Odbiorca"].ToString();
@@ -47,11 +46,16 @@ namespace PrintScript.Services
                     daimlerLabel.GTL = dr["GTL"].ToString();
                     daimlerLabel.DocEntry = dr["DocEntry"].ToString();
 
-                   
+                    
                     singleLabel = stringService.ConvertZplFile(stringService.ReadFile(), daimlerLabel);
-                    hanaService.CallUpdateProcedure(conn, int.Parse(daimlerLabel.DocEntry), 0);
+                    
                     Console.WriteLine(singleLabel);
                     ZplService.Print(singleLabel, IP.Zpl401);
+
+                    if (cnt == 1)
+                    {
+                        hanaService.CallUpdateProcedure(conn, int.Parse(daimlerLabel.DocEntry), 0);
+                    }
                 }
 
                 if (daimlerLabel != null)

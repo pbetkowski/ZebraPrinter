@@ -7,7 +7,7 @@ namespace PrintScript.Services
     class ZplService
     {
 
-        StringService stringService = StringService.GetInstance();
+        private StringService stringService = StringService.GetInstance();
         public static void Print(string zplString, string ip)
         {
             string ipAddress = ip;
