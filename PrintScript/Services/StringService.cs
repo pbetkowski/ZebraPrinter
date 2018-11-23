@@ -45,8 +45,9 @@ namespace PrintScript.Services
                 sb.Replace("StringPar5", label.Description);
                 sb.Replace("StringPar6", label.Supplier);
                 sb.Replace("StringPar7", label.SupplierPartNumber);
-                sb.Replace("StringPar8", label.SupplierPartNumber); // dopytać agatę
+                sb.Replace("StringPar8", label.Los); // dopytać agatę
                 sb.Replace("StringPar9", label.Street);
+                sb.Replace("StringParA", label.Date.Substring(0, 10));
                 sb.Replace("NumericPar1", label.GTL);
                 sb.Replace("NumericPar2", label.Gate);
                 sb.Replace("NumericPar4", label.LabelNo.ToString());

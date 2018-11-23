@@ -45,6 +45,7 @@ namespace PrintScript.Services
                     daimlerLabel.SupplierPartNumber = dr["Supplier part no"].ToString();
                     daimlerLabel.GTL = dr["GTL"].ToString();
                     daimlerLabel.DocEntry = dr["DocEntry"].ToString();
+                    daimlerLabel.Los = dr["Los"].ToString();
 
                     
                     singleLabel = stringService.ConvertZplFile(stringService.ReadFile(), daimlerLabel);
@@ -56,6 +57,8 @@ namespace PrintScript.Services
                     {
                         hanaService.CallUpdateProcedure(conn, int.Parse(daimlerLabel.DocEntry), 0);
                     }
+
+                    return;
                 }
 
                 if (daimlerLabel != null)

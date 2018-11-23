@@ -9,3 +9,14 @@ C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\obj\Debug\PrintScript.
 C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\obj\Debug\PrintScript.csproj.CopyComplete
 C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\obj\Debug\PrintScript.exe
 C:\Projects\Print\PrintersDaimler\PrintScript\PrintScript\obj\Debug\PrintScript.pdb
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\bin\Debug\PrintScript.exe.config
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\bin\Debug\PrintScript.exe
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\bin\Debug\PrintScript.pdb
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\bin\Debug\Sap.Data.Hana.v4.5.dll
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\bin\Debug\Sap.Data.Hana.v4.5.xml
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\bin\Debug\Sap.Data.Hana.v4.5.dll.config
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\obj\Debug\PrintScript.csprojAssemblyReference.cache
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\obj\Debug\PrintScript.csproj.CoreCompileInputs.cache
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\obj\Debug\PrintScript.csproj.CopyComplete
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\obj\Debug\PrintScript.exe
+C:\Users\pbetkows\Desktop\klon\ZebraPrinter\PrintScript\obj\Debug\PrintScript.pdb

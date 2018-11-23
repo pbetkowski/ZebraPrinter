@@ -23,5 +23,6 @@ namespace PrintScript.Model
         public string SupplierPartNumber { get; set; }
         public string GTL { get; set; }
         public string DocEntry { get; set; }
+        public string Los { get; set; }
     }
 }
